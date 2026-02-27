@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOT的官网</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #222;
+            background-color: #f5f5f7;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* 导航栏样式 - 适配6个链接 */
+        header {
+            background-color: #2d3748;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            flex-wrap: nowrap;
+        }
+        
+        .nav-links li {
+            margin-left: 18px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover {
+            color: #4299e1;
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #ffffff;
+            position: absolute;
+            left: 20px;
+        }
+        
+        /* 英雄区域样式 */
+        .hero {
+            background: linear-gradient(135deg, #4299e1 0%, #38b2ac 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #4299e1;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background-color: #f7fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 产品展示样式 */
+        .products {
+            padding: 100px 0;
+            background-color: #f5f5f7;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-info {
+            padding: 30px 25px;
+        }
+        
+        .product-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .product-btn {
+            display: inline-block;
+            background-color: #4299e1;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .product-btn:hover {
+            background-color: #3182ce;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: #2d3748;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #4299e1;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #4299e1;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #4a5568;
+            color: #cbd5e0;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .nav-links a {
+                font-size: 12px;
+            }
+            .nav-links li {
+                margin-left: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 65px;
+                left: -100%;
+                width: 100%;
+                flex-direction: column;
+                background-color: #2d3748;
+                text-align: center;
+                transition: left 0.3s;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0;
+                padding: 15px 0;
+                border-bottom: 1px solid #4a5568;
+                margin-left: 0;
+            }
+            
+            .nav-links a {
+                font-size: 14px;
+            }
+            
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="menu-toggle">☰</div>
+                <ul class="nav-links">
+                    <li><a target="_blank" href="https://78439049.pinit.eth.limo/">不同风格的SOT网站</a></li>
+                    <li><a target="_blank" href="https://vial.orgent.top/">vial网站</a></li>
+                    <li><a target="_blank" href="https://nb-qx.top/">齐喜的网站</a></li>
+                    <li><a target="_blank" href="https://c96c3188.pinit.eth.limo/sydex.html/">Utw的中国版网站</a></li>
+                    <li><a target="_blank" href="https://pipetrainingcamp.github.io/uwls.html/">UwLS的网站</a></li>
+                    <li><a target="_blank" href="https://yoyo-user-awa.github.io/UVS/">UVS的网站</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>SOT的频道</h1>
+            <a href="#products" class="btn">探索产品</a>
+        </div>
+    </section>
+    
+    <!-- 产品展示 -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>制氢粉和制氢液</h3>
+                        <a target="_blank" href="https://www.bilibili.com/video/BV1DqFPzCEPX/?spm_id_from=333.1387.upload.video_card.click&vd_source=13e764f84985ad0929261819d08632a0"><button class="product-btn">观看视频</button></a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3>威力巨大的大炮</h3>
+                        <a target="_blank" href="https://www.bilibili.com/video/BV1QdFNzJEis/?spm_id_from=333.1387.upload.video_card.click&vd_source=13e764f84985ad0929261819d08632a0"><button class="product-btn">观看视频</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>个人主页</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://space.bilibili.com/3546974013885166?spm_id_from=333.337.0.0" target="_blank">SOT的B站空间</a></li>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#products">产品</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 SOT科技有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端点击后关闭菜单
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if(window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.15)';
+            }
+        });
+    </script>
+</body>
+</html>
